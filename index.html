@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorei Talents - Caio Henrique</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            line-height: 1.5;
+            padding-bottom: 40px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #00c875 0%, #00995a 100%);
+            color: white;
+            padding: 45px 20px 35px 20px;
+            text-align: center;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: 0 10px 25px rgba(0, 200, 117, 0.15);
+            position: relative;
+        }
+
+        .partner-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+            max-width: 500px;
+            margin: 0 auto 16px auto;
+        }
+
+        .share-btn {
+            background-color: white;
+            color: #00995a;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 540px;
+            margin: 25px auto;
+            padding: 0 16px;
+        }
+        
+        .referral-card {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .referral-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .referral-card strong {
+            color: #00c875;
+            font-size: 18px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Barra de Busca e Filtros */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            font-size: 15px;
+            font-family: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #00c875;
+            box-shadow: 0 0 0 3px rgba(0, 200, 117, 0.15);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0 12px 0;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .filter-buttons::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4b5563;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+        }
+
+        .filter-btn.active {
+            background-color: #00c875;
+            border-color: #00c875;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 200, 117, 0.2);
+        }
+        
+        .job-card {
+            display: block;
+            background: white;
+            border: 1px solid #f3f4f6;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .job-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #00c875;
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+            transform-origin: top;
+        }
+        
+        .job-card:hover {
+            border-color: #e5e7eb;
+            box-shadow: 0 10px 20px rgba(0, 200, 117, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .job-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .job-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 10px;
+            padding-right: 24px;
+            position: relative;
+        }
+
+        .job-title svg {
+            position: absolute;
+            right: 0;
+            top: 2px;
+            transition: transform 0.2s;
+        }
+
+        .job-card:hover .job-title svg {
+            transform: translateX(3px);
+        }
+        
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .badge.remote {
+            background-color: #e6f9f0;
+            color: #00995a;
+        }
+
+        .badge.hybrid {
+            background-color: #fffbeb;
+            color: #b45309;
+        }
+
+        .badge.onsite {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+        
+        .salary {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 15px;
+            background-color: white;
+            border-radius: 16px;
+            border: 1px dashed #d1d5db;
+            display: none;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="partner-badge">Indicação · Caio Henrique</span>
+        <h1>Valorei Talents</h1>
+        <p>Encontre sua próxima grande oportunidade de carreira. Candidate-se diretamente pelo painel oficial.</p>
+        <button class="share-btn" onclick="copyPortalLink()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+            Copiar Link do Portal
+        </button>
+    </div>
+    
+    <div class="container">
+        <!-- Card de Indicação Premiada -->
+        <a href="https://vagas.valorei.tech/referral" class="referral-card" target="_blank">
+            🎁 Conhece alguém ideal para estas vagas?
+            <strong>Indique e ganhe R$ 200,00!</strong>
+        </a>
+
+        <!-- Barra de Busca -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por cargo, tecnologia ou local..." onkeyup="filterJobs()">
+        </div>
+
+        <!-- Filtros Rápidos -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterType('all', this)">Todas as Vagas</button>
+            <button class="filter-btn" onclick="filterType('remote', this)">100% Remoto</button>
+            <button class="filter-btn" onclick="filterType('hybrid', this)">Híbrido</button>
+            <button class="filter-btn" onclick="filterType('onsite', this)">Presencial</button>
+        </div>
+
+        <div id="noResults" class="no-results">
+            Nenhuma vaga encontrada para sua busca. 🔍
+        </div>
+        
+        <div class="jobs-list" id="jobsList">
+
+            <a href="https://vagas.valorei.tech/caio/vagas/cmssuxq04001vz2ttzspscndl" class="job-card" data-location="onsite" target="_blank">
+                <div class="job-title">
+                    Analista de Redes e Segurança - Pleno
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge onsite">Presencial</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 4.000 – R$ 5.500</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmssvor1f000fw9pcq3bplis9" class="job-card" data-location="onsite" target="_blank">
+                <div class="job-title">
+                    Analista de Segurança da Informação Sênior
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge onsite">Presencial</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 7.000 – R$ 8.500</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmpv9vv8x001tphzip83gbrei" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Backend Java Developer - AWS
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 14.000 – R$ 18.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmsrm46se0002yu5qpndsz6b8" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Engenheiro(a) de Dados Pleno - Databricks
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 6.000 – R$ 8.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmolyq2c6001hdyi77o0ycqex" class="job-card" data-location="onsite" target="_blank">
+                <div class="job-title">
+                    Consultor Funcional ERP
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge onsite">Presencial</span>
+                    <span class="badge">PJ</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 13.000 – R$ 25.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cms36qtmz000s8831xtgot5ek" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Account Manager B2B - Serviços de TI
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">PJ</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 9.000 – R$ 13.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmsrmn2an000zohhqzuxdko76" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Desenvolvedor(a) .NET - Backend - Mercado Financeiro
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 A combinar conforme experiência</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmsrkyssm000hohhq51yzmqxm" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Desenvolvedor(a) Backend JAVA - Mercado Financeiro
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 A combinar conforme experiência</div>
+            </a>
+
+            <a href="https://vagas.valorei.tech/caio/vagas/cmsxs2mi9000k13v46hsq94lw" class="job-card" data-location="remote" target="_blank">
+                <div class="job-title">
+                    Senior QA Engineer
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge remote">100% Remoto</span>
+                    <span class="badge">PJ</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 14.000 – R$ 17.000</div>
+            </a>
+
+
+            <a href="https://vagas.valorei.tech/caio/vagas/cmnherfjr000k84hxvv6hzexc" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    AWS Developer (Seguros)
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 15.000</div>
+            </a>
+
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmnheye8n001284hxudrku6oo" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Java Developer + Oracle/AWS (Seguros)
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 15.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmnnc2qt3000kh9bobcfarr9q" class="job-card" data-location="remote" target="_blank">
+                <div class="job-title">
+                    Senior Fullstack Software Engineer
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge remote">100% Remoto</span>
+                    <span class="badge">PJ</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 18.000 – R$ 20.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmnnc00td0003h9bobmdhy1wf" class="job-card" data-location="remote" target="_blank">
+                <div class="job-title">
+                    Senior Python Developer
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge remote">100% Remoto</span>
+                    <span class="badge">PJ</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 18.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmsrl5eh1000fm6nn13s1echc" class="job-card" data-location="hybrid" target="_blank">
+                <div class="job-title">
+                    Analista Mainframe Sênior - Mercado Financeiro
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge hybrid">Híbrido</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 10.000</div>
+            </a>
+    
+            <a href="https://vagas.valorei.tech/caio/vagas/cmqfrdr4a00021stpgechzck5" class="job-card" data-location="onsite" target="_blank">
+                <div class="job-title">
+                    Analista de Segurança da Informação Sênior
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+                <div class="badges">
+                    <span class="badge onsite">Presencial</span>
+                    <span class="badge">CLT</span>
+                </div>
+                <div class="salary">💰 Cerca de R$ 17.000</div>
+            </a>
+    
+        </div>
+        
+        <div class="footer">
+            &copy; 2026 Valorei. Todos os direitos reservados.
+        </div>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+
+        function filterJobs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.job-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.job-title').textContent.toLowerCase();
+                const badges = card.querySelector('.badges').textContent.toLowerCase();
+                const salary = card.querySelector('.salary') ? card.querySelector('.salary').textContent.toLowerCase() : '';
+                const locationType = card.getAttribute('data-location');
+                
+                const matchesSearch = title.includes(query) || badges.includes(query) || salary.includes(query);
+                const matchesFilter = currentFilter === 'all' || locationType === currentFilter;
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        function filterType(type, button) {
+            currentFilter = type;
+            
+            // Update active state in buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            filterJobs();
+        }
+
+        function copyPortalLink() {
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            const shareBtn = document.querySelector('.share-btn');
+            const originalText = shareBtn.innerHTML;
+            shareBtn.innerHTML = '✓ Copiado!';
+            shareBtn.style.backgroundColor = '#e6f9f0';
+            shareBtn.style.color = '#00995a';
+            
+            setTimeout(() => {
+                shareBtn.innerHTML = originalText;
+                shareBtn.style.backgroundColor = 'white';
+                shareBtn.style.color = '#00995a';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
